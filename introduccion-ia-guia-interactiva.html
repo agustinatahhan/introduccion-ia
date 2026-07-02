@@ -1,0 +1,840 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introducción a la IA — Guía Interactiva del Curso</title>
+<meta name="description" content="Guía interactiva del curso de Introducción a la IA. Navegá las slides, construí prompts y practicá con NotebookLM.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#F4511E;--ord:#D84116;
+  --pk:#FFF0F5;--pkc:rgba(255,182,203,.32);
+  --dk:#111;--tx:#222;--mu:#777;
+  --gb:#F6F6F6;--bd:#E8E8E8;--wh:#fff;
+  --gn:#2D8A4E;--gnb:#F0FBF4;
+  --fn:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+  --r:12px
+}
+html,body{height:100%;font-family:var(--fn);background:var(--wh);color:var(--tx);-webkit-font-smoothing:antialiased}
+body{overflow:hidden}
+
+/* ── ACCESS ── */
+#ac{position:fixed;inset:0;background:var(--wh);display:flex;align-items:center;justify-content:center;z-index:9999;padding:2rem}
+.ac-w{width:100%;max-width:380px;text-align:center}
+.back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:1rem;font-size:.82rem;font-weight:700;color:var(--or);text-decoration:none}
+.back-link:hover{color:var(--ord)}
+.ac-ico{width:52px;height:52px;background:var(--or);border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.625rem}
+.ac-w h1{font-size:1.55rem;font-weight:800;color:var(--dk);line-height:1.25;margin-bottom:.5rem}
+.ac-w>p{color:var(--mu);font-size:.875rem;margin-bottom:1.875rem;line-height:1.5}
+#ci{width:100%;padding:.85rem 1rem;border:2px solid var(--bd);border-radius:9px;font-size:1.1rem;text-align:center;letter-spacing:.18em;font-weight:700;font-family:var(--fn);outline:none;color:var(--dk);transition:border-color .2s;margin-bottom:.625rem;text-transform:uppercase}
+#ci:focus{border-color:var(--or)}
+#ci.shake{animation:shake .35s ease;border-color:#D93025}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.btn-p{width:100%;padding:.85rem;background:var(--or);color:var(--wh);border:none;border-radius:9px;font-size:.95rem;font-weight:700;font-family:var(--fn);cursor:pointer;transition:background .2s,transform .1s}
+.btn-p:hover{background:var(--ord)}
+.btn-p:active{transform:scale(.98)}
+#ae{margin-top:.5rem;font-size:.8rem;color:#D93025;font-weight:600;display:none}
+.ac-hint{margin-top:1.125rem;font-size:.75rem;color:#bbb}
+
+/* ── APP SHELL ── */
+#app{display:none;height:100vh;flex-direction:column;overflow:hidden}
+
+/* header */
+#hdr{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 1.375rem;height:50px;border-bottom:1px solid var(--bd);background:var(--wh);z-index:10}
+.hbrand{display:flex;align-items:center;gap:7px;font-weight:700;font-size:.82rem;color:var(--dk);letter-spacing:-.01em}
+.hpip{width:8px;height:8px;background:var(--or);border-radius:2px;flex-shrink:0}
+.hprog{display:flex;align-items:center;gap:9px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:.4rem .7rem;border:1px solid var(--bd);border-radius:999px;background:var(--wh);color:var(--or);font-size:.74rem;font-weight:700;font-family:var(--fn);cursor:pointer;text-decoration:none}
+.back-btn:hover{border-color:var(--or);background:#FFF6F2}
+.pt{width:150px;height:3px;background:var(--bd);border-radius:2px;overflow:hidden}
+@media(max-width:440px){.pt{width:90px}}
+.pf{height:100%;background:var(--or);border-radius:2px;transition:width .4s ease}
+.hcnt{font-size:.73rem;color:var(--mu);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* slides */
+#sw{flex:1;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;overflow-y:auto;padding:2.375rem 1.375rem 5.25rem;display:flex;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s ease}
+.slide.active{opacity:1;pointer-events:all}
+.si{width:100%;max-width:740px}
+
+/* nav */
+#nav{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:.875rem;padding:.75rem 1.125rem;border-top:1px solid var(--bd);background:var(--wh);z-index:10}
+.nb{display:flex;align-items:center;gap:5px;padding:.475rem 1rem;border:2px solid var(--bd);border-radius:7px;background:var(--wh);font-size:.83rem;font-weight:600;font-family:var(--fn);color:var(--tx);cursor:pointer;transition:border-color .18s,color .18s;white-space:nowrap}
+.nb:hover:not(:disabled){border-color:var(--or);color:var(--or)}
+.nb:disabled{opacity:.28;cursor:default}
+#bn{background:var(--or);border-color:var(--or);color:var(--wh);padding:.475rem 1.375rem}
+#bn:hover:not(:disabled){background:var(--ord);border-color:var(--ord);color:var(--wh)}
+.dots{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--bd);cursor:pointer;border:none;padding:0;transition:background .2s,width .2s}
+.dot.on{background:var(--or);width:18px;border-radius:4px}
+.dot.done{background:var(--or);opacity:.35}
+
+/* ── SLIDE COMPONENTS ── */
+.ey{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:.8rem}
+.ey::before{content:'';width:8px;height:8px;background:var(--or);border-radius:2px;flex-shrink:0}
+.st{font-size:clamp(1.7rem,4.5vw,2.55rem);font-weight:900;color:var(--dk);line-height:1.12;margin-bottom:.8rem;text-wrap:balance}
+.hl{color:var(--or)}
+.dv{border:none;border-top:1px solid var(--bd);margin:1rem 0}
+.blg{font-size:.975rem;line-height:1.7;color:var(--tx);margin-bottom:1rem}
+
+.box{border-radius:var(--r);padding:1.125rem 1.25rem}
+.box+.box{margin-top:.75rem}
+.bgr{background:var(--gb)}
+.bpk{background:var(--pk)}
+.bwh{background:var(--wh);border:1px solid var(--bd)}
+.bgn{background:var(--gnb);border:1px solid #B7E5C8}
+.blbl{font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:.45rem}
+.blbl.o{color:var(--or)}
+.box h3{font-size:1rem;font-weight:700;color:var(--dk);margin-bottom:.55rem}
+
+.bl{list-style:none;display:flex;flex-direction:column;gap:.28rem}
+.bl li{font-size:.875rem;line-height:1.5;padding-left:1.2rem;position:relative;color:var(--tx)}
+.bl li::before{content:'—';position:absolute;left:0;color:var(--mu)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.example-slide .g2{grid-template-columns:1fr;}
+.example-slide .blg{white-space:pre-wrap;word-break:break-word;font-family:inherit;line-height:1.65;}
+.example-slide .box{min-height:auto;}
+.example-slide pre.blg{margin:0;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:1rem;}
+@media(max-width:520px){.g2{grid-template-columns:1fr}}
+
+.nl{display:flex;flex-direction:column;gap:.75rem}
+.ni{display:flex;gap:.75rem;align-items:flex-start}
+.nb2{width:28px;height:28px;background:var(--or);color:var(--wh);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;flex-shrink:0;margin-top:1px}
+.nc h4{font-size:.9rem;font-weight:700;color:var(--dk);margin-bottom:.18rem}
+.nc p{font-size:.8rem;color:var(--mu);line-height:1.5;margin-bottom:.22rem}
+.eg{display:inline-block;font-size:.79rem;font-style:italic;background:var(--gb);padding:.28rem .55rem;border-radius:4px;color:var(--tx);line-height:1.5}
+
+.sl{display:flex;flex-direction:column}
+.si2{display:flex;gap:.875rem;padding:.8rem 0;border-bottom:1px solid var(--bd)}
+.si2:last-child{border-bottom:none}
+.slb{font-size:.64rem;font-weight:700;letter-spacing:.1em;color:var(--or);text-transform:uppercase;white-space:nowrap;padding-top:2px;min-width:46px}
+.sc h4{font-size:.9rem;font-weight:700;color:var(--dk);margin-bottom:.18rem}
+.sc ul{font-size:.84rem;color:var(--mu);list-style:none}
+.sc ul li::before{content:'— '}
+.sc p{font-size:.84rem;color:var(--mu);line-height:1.5}
+
+.qb{background:var(--pk);border-left:3.5px solid var(--or);border-radius:0 var(--r) var(--r) 0;padding:.9rem 1.1rem;font-size:.94rem;font-weight:600;line-height:1.55;color:var(--dk)}
+
+.tag{display:inline-block;padding:.18rem .5rem;border-radius:4px;font-size:.67rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tr{background:#FFF0EE;color:#C5381C}
+.tg{background:var(--gnb);color:var(--gn)}
+.to{background:#FFF2EE;color:var(--or)}
+
+.pb{background:var(--wh);border:1px solid var(--bd);border-radius:var(--r);padding:1rem;font-size:.86rem;line-height:1.7;color:var(--tx)}
+.pb.bad{border-left:4px solid #D93025}
+.pb.good{border-left:4px solid var(--gn)}
+.rb{background:var(--gnb);border:1px solid #B7E5C8;border-radius:var(--r);padding:1.125rem;font-size:.875rem;line-height:1.75}
+.tr2{display:flex;flex-wrap:wrap;gap:.35rem}
+
+/* cover */
+.cw{position:relative;min-height:calc(100vh - 140px);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.cd1{position:absolute;right:-100px;top:-80px;width:300px;height:300px;background:var(--pkc);border-radius:50%;pointer-events:none}
+.cd2{position:absolute;right:30px;bottom:-110px;width:190px;height:190px;background:var(--pkc);border-radius:50%;pointer-events:none;opacity:.55}
+.ct{font-size:clamp(2.2rem,7vw,3.875rem);font-weight:900;color:var(--dk);line-height:1.08;position:relative;z-index:1;text-wrap:balance}
+.cr{display:block;width:50px;height:4px;background:var(--or);margin:1rem 0 1.125rem}
+.cs{font-size:.9rem;color:var(--mu);max-width:340px;line-height:1.65;position:relative;z-index:1;margin-bottom:2.25rem}
+
+/* full slides */
+.fsi{width:100%;min-height:calc(100vh - 140px);display:flex;flex-direction:column;justify-content:center}
+.spk{background:var(--pk);border-radius:var(--r);padding:2.75rem 2rem;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sdk{background:#111;border-radius:var(--r);padding:2.75rem 2rem;flex:1;display:flex;flex-direction:column;justify-content:center}
+
+/* builder */
+.bb{background:var(--gb);border-radius:var(--r);padding:1.125rem;margin-bottom:1rem}
+.br{display:grid;grid-template-columns:82px 1fr;gap:.55rem;align-items:start;margin-bottom:.55rem}
+@media(max-width:440px){.br{grid-template-columns:1fr}}
+.bl2{font-size:.67rem;font-weight:700;color:var(--or);letter-spacing:.08em;text-transform:uppercase;padding-top:.575rem}
+.bi{width:100%;padding:.55rem .7rem;border:2px solid var(--bd);border-radius:6px;font-size:.84rem;font-family:var(--fn);color:var(--dk);background:var(--wh);outline:none;transition:border-color .18s;line-height:1.4}
+.bi:focus{border-color:var(--or)}
+.bta{resize:vertical;min-height:56px}
+.po{border:2px solid var(--or);border-radius:var(--r);padding:1rem;font-size:.84rem;line-height:1.75;min-height:76px;color:var(--tx);background:var(--wh)}
+.po em{color:var(--mu);font-style:italic}
+.ar{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.7rem}
+
+.bc{display:inline-flex;align-items:center;gap:4px;padding:.45rem .9rem;border:2px solid var(--or);border-radius:6px;background:var(--wh);color:var(--or);font-size:.79rem;font-weight:700;font-family:var(--fn);cursor:pointer;transition:all .18s}
+.bc:hover{background:var(--or);color:var(--wh)}
+.bc.cp{background:var(--gn);border-color:var(--gn);color:var(--wh)}
+.bg{display:inline-flex;align-items:center;gap:4px;padding:.45rem .9rem;border-radius:6px;background:#10A37F;color:var(--wh);font-size:.79rem;font-weight:700;font-family:var(--fn);border:2px solid #10A37F;cursor:pointer;text-decoration:none;transition:background .18s}
+.bg:hover{background:#0D8C6E;border-color:#0D8C6E}
+
+/* chips */
+.cw2{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.875rem}
+.chip{padding:.35rem .75rem;border:2px solid var(--or);border-radius:20px;font-size:.78rem;font-weight:600;color:var(--or);cursor:pointer;transition:all .18s;background:var(--wh);font-family:var(--fn)}
+.chip:hover,.chip.on{background:var(--or);color:var(--wh)}
+
+mark.r{background:rgba(244,81,30,.13);color:var(--or);border-radius:2px}
+mark.g{background:rgba(45,138,78,.13);color:var(--gn);border-radius:2px}
+
+.mt1{margin-top:.5rem}.mt2{margin-top:.875rem}.mt3{margin-top:1.375rem}
+
+/* toast */
+#toast{position:fixed;bottom:68px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--dk);color:var(--wh);padding:.45rem 1rem;border-radius:7px;font-size:.79rem;font-weight:600;white-space:nowrap;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:999}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+
+@media(max-width:520px){
+  .slide{padding:1.375rem .875rem 5rem}
+  .st{font-size:1.6rem}
+  .ct{font-size:2.1rem}
+}
+</style>
+</head>
+<body>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ACCESS -->
+<div id="ac">
+  <div class="ac-w">
+    <div class="ac-ico">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <a href="index.html" class="back-link">← Volver al índice</a>
+    <h1>Introducción a la<br>Inteligencia Artificial</h1>
+    <p>Ingresá el código del taller para acceder a los materiales interactivos.</p>
+    <input type="text" id="ci" placeholder="CÓDIGO" autocomplete="off" spellcheck="false" aria-label="Código de acceso">
+    <div id="ae">Código incorrecto. Pedíselo al instructor.</div>
+    <button class="btn-p" onclick="checkCode()">Ingresar al taller</button>
+    <p class="ac-hint">Código provisto por el instructor al inicio de la clase.</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header id="hdr">
+    <div class="hbrand"><div class="hpip"></div>Introducción a la IA</div>
+    <div class="hprog">
+      <button class="back-btn" onclick="backToIndex()">← Volver al índice</button>
+      <div class="pt"><div class="pf" id="pf"></div></div>
+      <span class="hcnt" id="hcnt"></span>
+    </div>
+  </header>
+
+  <div id="sw">
+
+    <!-- 0 Portada -->
+    <div class="slide active" id="s0">
+      <div class="si">
+        <div class="cw">
+          <div class="cd1"></div><div class="cd2"></div>
+          <div style="position:relative;z-index:1">
+            <div class="ct">Introducción a la<br>Inteligencia Artificial</div>
+            <span class="cr"></span>
+            <p class="cs">Una guía práctica para ayudarte en tu día a día.</p>
+            <button class="btn-p" style="width:auto;padding:.7rem 1.875rem;font-size:.92rem" onclick="go(1)">Comenzar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1 Qué es la IA -->
+    <div class="slide" id="s1">
+      <div class="si">
+        <div class="ey">Fundamentos</div>
+        <h1 class="st">¿Qué es la Inteligencia Artificial?</h1>
+        <hr class="dv">
+        <p class="blg">La <strong style="color:var(--or)">Inteligencia Artificial</strong> es una tecnología que ayuda a las personas a resolver problemas, automatizar tareas y obtener información de manera rápida, simulando algunas capacidades del pensamiento humano.</p>
+        <p class="blg">Los chats de IA son la forma más accesible de utilizar esta tecnología: reciben instrucciones y devuelven respuestas en distintos formatos.</p>
+        <div class="box bgr">
+          <div class="blbl">Pensemos en esta como</div>
+          <h3>Un asistente disponible las 24 horas.</h3>
+          <div class="blbl mt2">Puede ayudarte a</div>
+          <ul class="bl mt1">
+            <li>Ahorrar tiempo en tareas repetitivas.</li>
+            <li>Generar ideas.</li>
+            <li>Responder mensajes.</li>
+            <li>Escribir publicaciones para redes sociales.</li>
+            <li>Crear descripciones de productos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 Qué es un Prompt -->
+    <div class="slide" id="s2">
+      <div class="si">
+        <div class="ey">Fundamentos</div>
+        <h1 class="st">¿Qué es un Prompt?</h1>
+        <hr class="dv">
+        <div style="height:.625rem"></div>
+        <p class="blg">Un <strong style="color:var(--or)">prompt</strong> es la instrucción o pedido que le hacemos al Chat de la IA. Es simplemente la forma en que nos comunicamos con esta.</p>
+        <div class="qb mt2">
+          <div class="blbl o" style="margin-bottom:.3rem">Regla simple</div>
+          Cuanto mejor expliques lo que necesitas, mejor será la respuesta.
+        </div>
+        <div class="box bgr mt3">
+          <div class="blbl" style="margin-bottom:.7rem">Comparación rápida</div>
+          <div class="g2">
+            <div class="box bwh" style="padding:.8rem">
+              <div class="tag tr" style="margin-bottom:.45rem">Prompt vago</div>
+              <p style="font-size:.84rem;font-style:italic;line-height:1.55">"Ayudame con mi negocio"</p>
+            </div>
+            <div class="box bwh" style="padding:.8rem">
+              <div class="tag tg" style="margin-bottom:.45rem">Prompt claro</div>
+              <p style="font-size:.84rem;font-style:italic;line-height:1.55">"Escribí un mensaje de WhatsApp avisando un 20% de descuento este fin de semana en mi tienda de ropa"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Importancia -->
+    <div class="slide" id="s3">
+      <div class="si">
+        <div class="ey">Fundamentos</div>
+        <h1 class="st">La importancia de un buen Prompt</h1>
+        <p style="font-size:.9rem;margin-bottom:1rem">La IA no adivina. <strong style="color:var(--or)">Trabaja con la información que recibe.</strong></p>
+        <hr class="dv">
+        <div class="g2">
+          <div class="box bgr">
+            <div class="blbl" style="margin-bottom:.45rem">Si le das poco contexto</div>
+            <ul class="bl"><li>Respuestas genéricas.</li><li>Menos útiles.</li><li>Más trabajo para corregir.</li></ul>
+          </div>
+          <div class="box bpk">
+            <div class="blbl o" style="margin-bottom:.45rem">Si le das buen contexto</div>
+            <ul class="bl"><li>Respuestas personalizadas.</li><li>Más precisas.</li><li>Menos tiempo editando.</li></ul>
+          </div>
+        </div>
+        <div class="qb mt2">👉 Un buen resultado comienza con una buena instrucción.</div>
+      </div>
+    </div>
+
+    <!-- 4 Estructura -->
+    <div class="slide" id="s4">
+      <div class="si">
+        <div class="ey">Cómo construir un buen Prompt</div>
+        <h1 class="st">La estructura de un Prompt ideal</h1>
+        <p style="color:var(--mu);font-size:.85rem;margin-bottom:1.125rem">Cuando hagas un pedido a la IA, intentá incluir estos 5 elementos:</p>
+        <div class="nl">
+          <div class="ni"><div class="nb2">1</div><div class="nc"><h4>Rol</h4><p>¿Quién es la IA? Define su experiencia, tono y perspectiva.</p><span class="eg">"Actúa como un especialista en marketing para comercios."</span></div></div>
+          <div class="ni"><div class="nb2">2</div><div class="nc"><h4>Tarea</h4><p>¿Qué debe hacer exactamente? Usa verbos de acción claros.</p><span class="eg">"Escribe un mensaje promocional para enviar por WhatsApp."</span></div></div>
+          <div class="ni"><div class="nb2">3</div><div class="nc"><h4>Contexto</h4><p>¿Para quién es? ¿Cuál es el objetivo?</p><span class="eg">"Tengo una tienda de ropa femenina y quiero informar una promoción de fin de semana."</span></div></div>
+          <div class="ni"><div class="nb2">4</div><div class="nc"><h4>Formato</h4><p>¿Cómo querés la salida? Mensaje, email, lista, tabla.</p><span class="eg">"Presenta la respuesta como un mensaje corto de WhatsApp."</span></div></div>
+          <div class="ni"><div class="nb2">5</div><div class="nc"><h4>Restricciones</h4><p>¿Qué condiciones debe cumplir la respuesta?</p><span class="eg">"Menos de 5 líneas, tono amigable, incluir un 20% de descuento."</span></div></div>
+        </div>
+        <div class="box bpk mt3" style="font-weight:700;font-size:.9rem">Rol + Tarea + Contexto + Formato + Restricciones</div>
+      </div>
+    </div>
+
+    <!-- 5 Caso práctico mensaje -->
+    <div class="slide" id="s5">
+      <div class="si">
+        <div class="ey">Caso Práctico · Cliente Enojada</div>
+        <h1 class="st">Mensaje recibido</h1>
+        <hr class="dv">
+        <div class="box bgr" style="font-size:.975rem;line-height:1.8;padding:1.625rem">
+          <p>"Hola. Acabo de recibir mi pedido y el producto llegó roto. La verdad estoy muy decepcionada porque lo necesitaba para este fin de semana. Quiero saber cómo van a solucionar este problema."</p>
+        </div>
+        <div class="box bpk mt2">
+          <div class="blbl o" style="margin-bottom:.35rem">Tu desafío</div>
+          <p style="font-size:.875rem;line-height:1.6">Usá la IA para redactar una respuesta profesional, empática y con solución concreta. Las próximas slides muestran la diferencia entre un prompt malo y uno completo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Prompt malo -->
+    <div class="slide" id="s6">
+      <div class="si">
+        <div class="ey">Caso Práctico · Comparación</div>
+        <h1 class="st">Ejemplo de Prompt Malo</h1>
+        <hr class="dv">
+        <div class="blbl" style="margin:.8rem 0 .35rem">Prompt enviado</div>
+        <div class="pb bad">"Contesta el mensaje de un cliente enojado."</div>
+        <div class="blbl" style="margin:.875rem 0 .35rem">Resultado posible</div>
+        <div class="box bgr" style="font-style:italic;font-size:.875rem;line-height:1.7">"Hola. Lamentamos lo ocurrido. Vamos a revisar la situación. Gracias por comunicarse."</div>
+        <div class="blbl o mt3" style="margin-bottom:.45rem">Problemas</div>
+        <ul class="bl"><li>Muy genérico, no personalizado.</li><li>No demuestra empatía real.</li><li>No ofrece una solución concreta.</li></ul>
+      </div>
+    </div>
+
+    <!-- 7 Prompt completo -->
+    <div class="slide" id="s7">
+      <div class="si">
+        <div class="ey">Caso Práctico · Prompt Completo</div>
+        <h1 class="st">Ejemplo de Prompt Completo</h1>
+        <hr class="dv" style="margin-bottom:1.125rem">
+        <div class="nl">
+          <div class="ni"><div class="nb2">1</div><div class="nc"><h4>Rol</h4><span class="eg">Actúa como encargado de atención al cliente de una tienda online con experiencia resolviendo reclamos.</span></div></div>
+          <div class="ni"><div class="nb2">2</div><div class="nc"><h4>Tarea</h4><span class="eg">Escribe un email corto para responder a una clienta que recibió un producto roto.</span></div></div>
+          <div class="ni"><div class="nb2">3</div><div class="nc"><h4>Contexto</h4><span class="eg">La clienta está molesta porque el producto llegó dañado y lo necesitaba para este fin de semana. Es clienta desde hace 2 años y queremos mantener la relación.</span></div></div>
+          <div class="ni"><div class="nb2">4</div><div class="nc"><h4>Formato</h4><span class="eg">Presenta la respuesta como un email breve de máximo 8 líneas.</span></div></div>
+          <div class="ni"><div class="nb2">5</div><div class="nc"><h4>Requisitos</h4><span class="eg">Tono profesional pero cálido. Empatía y disculpas. Informar reposición sin costo. No hace falta devolver el producto dañado.</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 Resultado -->
+    <div class="slide" id="s8">
+      <div class="si">
+        <div class="ey">Caso Práctico · Resultado</div>
+        <h1 class="st">Resultado del Prompt Bueno</h1>
+        <hr class="dv" style="margin-bottom:.875rem">
+        <div class="blbl" style="margin-bottom:.35rem">Respuesta generada</div>
+        <div class="rb" style="margin-bottom:1rem">
+          <p>Hola María,</p><br>
+          <p>Lamentamos que hayas recibido el producto dañado y entendemos tu decepción.</p><br>
+          <p>Nos disculpamos por esta experiencia, siendo una clienta valiosa desde hace 2 años.</p><br>
+          <p>Enviamos una nueva unidad sin costo. No devuelvas la dañada.</p><br>
+          <p>Gracias. Quedamos a tu disposición.</p>
+        </div>
+        <div class="blbl o" style="margin-bottom:.45rem">¿Qué cambió?</div>
+        <div class="tr2">
+          <span class="tag tg">Más humana</span><span class="tag tg">Más profesional</span><span class="tag tg">Demuestra empatía</span><span class="tag tg">Solución concreta</span><span class="tag tg">Genera confianza</span><span class="tag tg">Protege la relación</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 La lección -->
+    <div class="slide" id="s9">
+      <div class="si">
+        <div class="ey">La lección más importante</div>
+        <div style="height:1.25rem"></div>
+        <h1 class="st" style="font-size:clamp(1.75rem,5.5vw,3.1rem)">La calidad de la respuesta depende de la <span class="hl">calidad del Prompt.</span></h1>
+        <div class="qb mt3">Dedicar 1 minuto más a escribir una buena instrucción puede ahorrarte mucho tiempo después.</div>
+        <div class="mt3">
+          <div class="blbl" style="margin-bottom:.55rem">Recordá</div>
+          <p style="font-size:.975rem;font-weight:700;margin-bottom:.35rem">Mejor contexto = Mejor respuesta.</p>
+          <p style="font-size:.975rem;font-weight:700">La IA es tan buena como las instrucciones que recibe.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 EJERCICIO INTERACTIVO -->
+    <div class="slide" id="s10">
+      <div class="si">
+        <div class="ey">Practiquemos</div>
+        <h1 class="st">Construí tu propio Prompt</h1>
+        <p style="color:var(--mu);font-size:.84rem;margin-bottom:1.125rem;line-height:1.5">Completá los campos con tu situación real. El prompt se arma automáticamente para que lo copies en ChatGPT.</p>
+        <div class="bb">
+          <div class="br"><span class="bl2">1 · Rol</span><input class="bi" id="b1" type="text" placeholder="Actúa como un especialista en..."></div>
+          <div class="br"><span class="bl2">2 · Tarea</span><input class="bi" id="b2" type="text" placeholder="Escribe / Responde / Redactá..."></div>
+          <div class="br"><span class="bl2">3 · Contexto</span><textarea class="bi bta" id="b3" placeholder="Tengo un negocio de... La consulta frecuente que recibo es..."></textarea></div>
+          <div class="br"><span class="bl2">4 · Formato</span><input class="bi" id="b4" type="text" placeholder="Como mensaje de WhatsApp / email / lista..."></div>
+          <div class="br" style="margin-bottom:0"><span class="bl2">5 · Requisitos</span><textarea class="bi bta" id="b5" placeholder="Debe ser breve, usar tono amigable, incluir..."></textarea></div>
+        </div>
+        <div class="blbl" style="margin-bottom:.35rem">Tu prompt generado</div>
+        <div class="po" id="po"><em>Completá los campos y tu prompt aparecerá aquí...</em></div>
+        <div class="ar">
+          <button class="bc" id="cpb" onclick="copyPrompt()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar prompt
+          </button>
+          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="bg">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Abrir ChatGPT
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 Imágenes -->
+    <div class="slide" id="s11">
+      <div class="si">
+        <div class="ey">Mostrarle el producto a la IA</div>
+        <h1 class="st">Usando imágenes de tus productos</h1>
+        <hr class="dv">
+        <div class="sl" style="margin-bottom:1.25rem">
+          <div class="si2"><span class="slb">Paso 1</span><div class="sc"><h4>Abrí ChatGPT.</h4></div></div>
+          <div class="si2"><span class="slb">Paso 2</span><div class="sc"><h4>Adjuntá una foto de tu producto.</h4><p>Usá el ícono de imagen o adjunto en el chat.</p></div></div>
+          <div class="si2"><span class="slb">Paso 3</span><div class="sc"><h4>Pedile que genere una descripción.</h4><p>Escribí tu prompt junto con la imagen.</p></div></div>
+        </div>
+        <div class="box bpk">
+          <div class="blbl o" style="margin-bottom:.45rem">La IA puede identificar</div>
+          <ul class="bl"><li>Tipo de producto.</li><li>Materiales y colores.</li><li>Características destacadas.</li><li>Posibles beneficios para el cliente.</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 Prompt para producto -->
+    <div class="slide" id="s12">
+      <div class="si">
+        <div class="ey">Ejemplo</div>
+        <h1 class="st">Prompt ideal para describir un producto</h1>
+        <hr class="dv" style="margin-bottom:1rem">
+        <div class="box bgr" style="font-size:.86rem;line-height:1.8;font-style:italic;padding:1.375rem;margin-bottom:.875rem">"<mark class="r">Actúa como un especialista en marketing para redes sociales.</mark> <mark class="g">Analiza la imagen y escribe una descripción para promocionar el producto.</mark> La publicación está dirigida a mujeres de entre 25 y 50 años interesadas en productos de calidad y buen diseño. <mark class="r">Presenta la respuesta como una publicación para Instagram.</mark> Destaca los beneficios del producto, utiliza un tono cercano y profesional, incluye algunos emojis y finaliza con un llamado a la acción invitando a los clientes a escribir por WhatsApp para consultar o comprar."</div>
+        <div class="tr2" style="margin-bottom:.875rem">
+          <span class="tag to">1 · Rol</span><span class="tag to">2 · Tarea</span><span class="tag to">3 · Contexto</span><span class="tag to">4 · Formato</span><span class="tag to">5 · Restricciones</span>
+        </div>
+        <button class="bc" onclick="cp('Actúa como un especialista en marketing para redes sociales. Analiza la imagen y escribe una descripción para promocionar el producto. La publicación está dirigida a mujeres de entre 25 y 50 años interesadas en productos de calidad y buen diseño. Presenta la respuesta como una publicación para Instagram. Destaca los beneficios del producto, utiliza un tono cercano y profesional, incluye algunos emojis y finaliza con un llamado a la acción invitando a los clientes a escribir por WhatsApp para consultar o comprar.')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copiar este prompt
+        </button>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Dynamic example slides loaded from prompt-examples.txt -->
+    <div id="dynamic-examples-placeholder"></div>
+
+    <!-- 13 Pausa -->
+    <div class="slide" id="s13">
+      <div class="si fsi">
+        <div class="spk">
+          <div style="font-size:3.25rem;margin-bottom:.875rem">☕</div>
+          <div class="ey" style="justify-content:center">Pausa</div>
+          <h1 class="st" style="text-align:center;margin-bottom:.875rem">Pausa para café</h1>
+          <p style="color:var(--mu);max-width:290px;text-align:center;line-height:1.6;font-size:.875rem">Aprovechá para practicar los prompts y preparar preguntas para la segunda parte.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 NotebookLM -->
+    <div class="slide" id="s14">
+      <div class="si">
+        <div class="ey">Tu asistente para entender documentos</div>
+        <h1 class="st">¿Qué es NotebookLM?</h1>
+        <hr class="dv">
+        <p class="blg">NotebookLM es una herramienta de Google que puede <strong>leer documentos</strong> y responder preguntas sobre ellos — en segundos, sin que tengas que leer todo.</p>
+        <div class="g2">
+          <div class="box bgr">
+            <div class="blbl" style="margin-bottom:.45rem">Podés cargar</div>
+            <ul class="bl"><li>PDFs</li><li>Planillas de Excel</li><li>Documentos de Word</li><li>Manuales y reglamentos</li><li>Contratos</li></ul>
+          </div>
+          <div class="box bpk">
+            <div class="blbl o" style="margin-bottom:.45rem">¿Qué hace?</div>
+            <ul class="bl"><li>Resume información.</li><li>Encuentra datos clave.</li><li>Responde preguntas sobre el contenido.</li><li>Explica textos largos de forma simple.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 Cómo funciona -->
+    <div class="slide" id="s15">
+      <div class="si">
+        <div class="ey">Tres pasos simples</div>
+        <h1 class="st">¿Cómo funciona NotebookLM?</h1>
+        <hr class="dv">
+        <div class="sl">
+          <div class="si2"><span class="slb">Paso 1</span><div class="sc"><h4>Subir un documento</h4><ul><li>Un catálogo de productos.</li><li>Una lista de precios de proveedores.</li><li>Un contrato de alquiler.</li></ul></div></div>
+          <div class="si2"><span class="slb">Paso 2</span><div class="sc"><h4>Hacer preguntas</h4><ul><li>¿Cuál es el precio más alto?</li><li>¿Qué condiciones tiene la garantía?</li><li>¿Cuáles son los plazos de entrega?</li></ul></div></div>
+          <div class="si2"><span class="slb">Paso 3</span><div class="sc"><h4>Obtener respuestas</h4><p>La herramienta busca dentro del documento y responde <strong style="color:var(--or)">en segundos</strong>, sin que leas todo.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 PREGUNTAS NOTEBOOKLM interactivo -->
+    <div class="slide" id="s16">
+      <div class="si">
+        <div class="ey">Practiquemos · NotebookLM</div>
+        <h1 class="st">Preguntas para hacerle a tu documento</h1>
+        <p style="color:var(--mu);font-size:.84rem;margin-bottom:1.125rem">Seleccioná una pregunta, copiala y probala en NotebookLM con un documento tuyo.</p>
+        <hr class="dv" style="margin-bottom:1rem">
+        <div class="cw2" id="chips">
+          <button class="chip" onclick="selChip(this,'¿Qué productos tienen garantía?')">¿Qué productos tienen garantía?</button>
+          <button class="chip" onclick="selChip(this,'¿Cuáles son los más económicos?')">¿Cuáles son los más económicos?</button>
+          <button class="chip" onclick="selChip(this,'¿Qué productos están dirigidos a niños?')">¿Dirigidos a niños?</button>
+          <button class="chip" onclick="selChip(this,'Haceme un resumen de las promociones vigentes.')">Resumen de promociones</button>
+          <button class="chip" onclick="selChip(this,'¿Cuáles son las formas de pago aceptadas?')">¿Formas de pago?</button>
+          <button class="chip" onclick="selChip(this,'Resumí el contrato en 5 puntos clave.')">Resumir contrato</button>
+          <button class="chip" onclick="selChip(this,'¿Cuáles son los plazos de entrega?')">¿Plazos de entrega?</button>
+          <button class="chip" onclick="selChip(this,'¿Cuáles son los términos y condiciones de la garantía?')">Términos de garantía</button>
+          <button class="chip" onclick="selChip(this,'¿Cuál es el precio más alto y el más bajo del catálogo?')">Rango de precios</button>
+        </div>
+        <div class="po" id="qo"><em>Seleccioná una pregunta de arriba...</em></div>
+        <div class="ar">
+          <button class="bc" id="cqb" onclick="copyQ()" style="display:none">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar pregunta
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17 ChatGPT vs NotebookLM -->
+    <div class="slide" id="s17">
+      <div class="si">
+        <div class="ey">ChatGPT vs. NotebookLM</div>
+        <h1 class="st">¿Cuál es la diferencia?</h1>
+        <hr class="dv" style="margin-bottom:1.25rem">
+        <div class="g2" style="margin-bottom:1.25rem">
+          <div class="box bgr" style="padding:1.25rem">
+            <div class="blbl" style="margin-bottom:.55rem">ChatGPT</div>
+            <p style="font-size:.95rem;font-weight:600;line-height:1.55">Trabaja con lo que le <strong style="color:var(--or)">escribís.</strong></p>
+            <p style="font-size:.8rem;color:var(--mu);margin-top:.55rem;line-height:1.55">Ideal para crear contenido, redactar respuestas y generar ideas.</p>
+          </div>
+          <div class="box bpk" style="padding:1.25rem">
+            <div class="blbl o" style="margin-bottom:.55rem">NotebookLM</div>
+            <p style="font-size:.95rem;font-weight:600;line-height:1.55">Trabaja con los <strong style="color:var(--or)">documentos</strong> que le compartís.</p>
+            <p style="font-size:.8rem;color:var(--mu);margin-top:.55rem;line-height:1.55">Ideal para analizar catálogos, contratos y listas de precios.</p>
+          </div>
+        </div>
+        <div class="box bgr">
+          <div class="blbl" style="margin-bottom:.7rem">¿Cuándo usar cuál?</div>
+          <div class="g2">
+            <div>
+              <p style="font-weight:700;font-size:.84rem;margin-bottom:.35rem">Usá ChatGPT para:</p>
+              <ul class="bl" style="font-size:.8rem"><li>Responder mensajes de clientes.</li><li>Escribir publicaciones en redes.</li><li>Generar ideas de marketing.</li></ul>
+            </div>
+            <div>
+              <p style="font-weight:700;font-size:.84rem;margin-bottom:.35rem">Usá NotebookLM para:</p>
+              <ul class="bl" style="font-size:.8rem"><li>Consultar precios de proveedores.</li><li>Analizar contratos y presupuestos.</li><li>Resumir catálogos extensos.</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 18 Conclusiones -->
+    <div class="slide" id="s18">
+      <div class="si">
+        <div class="ey">Conclusiones</div>
+        <h1 class="st">La IA no reemplaza tu experiencia</h1>
+        <hr class="dv" style="margin-bottom:1.25rem">
+        <ul class="bl" style="font-size:.935rem;gap:.55rem;margin-bottom:1.25rem">
+          <li>Nadie conoce tu negocio mejor que vos.</li>
+          <li>La IA no reemplaza tu conocimiento, tu criterio ni tu atención al cliente.</li>
+          <li>Lo que sí puede hacer es ayudarte a <strong style="color:var(--or)">trabajar más rápido</strong> y dedicar más tiempo a lo que realmente importa.</li>
+        </ul>
+        <div class="box bpk">
+          <div class="blbl o" style="margin-bottom:.45rem">¿Cuándo puede ayudarte NotebookLM?</div>
+          <ul class="bl" style="font-size:.84rem"><li>Analizar listas de precios de proveedores.</li><li>Resumir contratos o presupuestos.</li><li>Consultar políticas de garantía.</li><li>Revisar catálogos extensos sin leerlos completos.</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19 Cierre -->
+    <div class="slide" id="s19">
+      <div class="si fsi">
+        <div class="sdk">
+          <div class="ey" style="color:var(--or)">Gracias por participar</div>
+          <h1 style="font-size:clamp(1.875rem,6vw,3.375rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1.25rem;text-wrap:balance">La mejor forma de aprender IA es <span style="color:var(--or)">usándola.</span></h1>
+          <p style="color:#888;font-size:.9rem;line-height:1.65;max-width:380px;margin-bottom:1.625rem">Cada pregunta que hagas y cada prompt que pruebes te ayudará a obtener mejores resultados.</p>
+          <hr style="border:none;border-top:1px solid #2a2a2a;margin-bottom:1.375rem">
+          <p style="color:white;font-weight:700;margin-bottom:.45rem;font-size:.875rem">Recordá:</p>
+          <p style="color:#666;font-size:.84rem;margin-bottom:.22rem">— La IA no premia al que más sabe de tecnología.</p>
+          <p style="color:#666;font-size:.84rem">— Premia al que mejor sabe explicar lo que necesita.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /sw -->
+
+  <nav id="nav">
+    <button class="nb" id="bp" onclick="prev()" disabled>← Anterior</button>
+    <div class="dots" id="dots"></div>
+    <button class="nb" id="bn" onclick="next()">Siguiente →</button>
+  </nav>
+</div>
+
+<script>
+const CODE='IACIA25';
+const params=new URLSearchParams(window.location.search);
+const autoOpen=params.get('access')==='1' || params.get('code')===CODE;
+const $ci=document.getElementById('ci');
+const $ae=document.getElementById('ae');
+
+$ci.addEventListener('keydown',e=>{if(e.key==='Enter')checkCode()});
+
+if(autoOpen){
+  document.getElementById('ac').style.display='none';
+  const app=document.getElementById('app');
+  app.style.display='flex';
+  init();
+}
+
+function backToIndex(){
+  const target='index.html';
+  if(window.top!==window){window.top.location.href=target}else{window.location.href=target}
+}
+
+function checkCode(){
+  const v=$ci.value.trim().toUpperCase().replace(/\s/g,'');
+  if(v===CODE){
+    document.getElementById('ac').style.display='none';
+    const app=document.getElementById('app');
+    app.style.display='flex';
+    init();
+  } else {
+    $ae.style.display='block';
+    $ci.classList.add('shake');
+    $ci.value='';
+    setTimeout(()=>$ci.classList.remove('shake'),400);
+    $ci.focus();
+  }
+}
+
+/* ── Navigation ── */
+let cur=0;
+const ss=()=>document.querySelectorAll('#sw .slide');
+
+function init(){
+  loadExampleSlides().finally(()=>{
+    const d=document.getElementById('dots');
+    ss().forEach((_,i)=>{
+      const b=document.createElement('button');
+      b.className='dot';
+      b.setAttribute('aria-label','Slide '+(i+1));
+      b.onclick=()=>go(i);
+      d.appendChild(b);
+    });
+    update();
+  });
+}
+
+function loadExampleSlides(){
+  return fetch('prompt-examples.txt')
+    .then(r=>{if(!r.ok)throw new Error('Archivo no encontrado');return r.text();})
+    .then(text=>{
+      const markerCounts=countPromptExampleMarkers(text);
+      const slides=parsePromptExamples(text);
+      console.info('prompt-examples.txt markers', markerCounts, 'examplesLoaded', slides.length);
+      if(slides.length < Math.min(markerCounts.bad, markerCounts.good)){
+        console.warn('Se detectaron menos ejemplos que pares de [bad]/[good]. Revisa el formato de prompt-examples.txt.');
+      }
+      if(slides.length){
+        createExampleSlides(slides);
+      }
+    })
+    .catch(()=>{
+      console.warn('No se cargaron ejemplos dinámicos de prompt-examples.txt');
+    });
+}
+
+function countPromptExampleMarkers(text){
+  const lower=text.toLowerCase();
+  return {
+    bad:(lower.match(/\[bad\]/g)||[]).length,
+    good:(lower.match(/\[good\]/g)||[]).length,
+    title:(lower.match(/\[(?:title|titulo)\]/g)||[]).length
+  };
+}
+
+function parsePromptExamples(text){
+  // Use a regex to capture [bad] ... [good] pairs including multiline content
+  // Support optional [title] or [titulo] before each [bad]/[good] pair.
+  // Captures: optional title, bad block, good block until next marker or EOF.
+  const re = /(?:\[(?:title|titulo)\]\s*([\s\S]*?)\s*)?\[bad\]\s*([\s\S]*?)\s*\[good\]\s*([\s\S]*?)(?=\n\s*(?:\[(?:title|titulo)\]|\[bad\])|$)/gi;
+  const examples = [];
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const title = (m[1] || '').trim();
+    const bad = (m[2] || '').trim();
+    const good = (m[3] || '').trim();
+    examples.push({title, bad, good});
+  }
+  return examples;
+}
+
+function createExampleSlides(examples){
+  const placeholder=document.getElementById('dynamic-examples-placeholder');
+  examples.forEach((example,index)=>{
+    const slide=document.createElement('div');
+    slide.className='slide example-slide';
+    slide.id='s-example-'+index;
+    slide.innerHTML=`
+      <div class="si">
+        <div class="ey">${escapeHtml(example.title || 'Ejemplo dinámico')}</div>
+        <h1 class="st">${escapeHtml(example.title || ('Ejemplo de prompt '+(index+1)))}</h1>
+        <hr class="dv">
+        <div class="g2">
+          <div class="box bwh">
+            <div class="blbl">Prompt débil</div>
+            <pre class="blg">${escapeHtml(example.bad)}</pre>
+          </div>
+          <div class="box bgn">
+            <div class="blbl o">Prompt bien estructurado</div>
+            <pre class="blg">${escapeHtml(example.good)}</pre>
+          </div>
+        </div>
+      </div>
+    `;
+    placeholder.appendChild(slide);
+  });
+}
+
+function escapeHtml(value){
+  return value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function go(n){
+  const a=ss();
+  a[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(n,a.length-1));
+  a[cur].classList.add('active');
+  a[cur].scrollTop=0;
+  update();
+}
+
+function next(){go(cur+1)}
+function prev(){go(cur-1)}
+
+function update(){
+  const t=ss().length;
+  document.getElementById('bp').disabled=cur===0;
+  document.getElementById('bn').disabled=cur===t-1;
+  document.getElementById('pf').style.width=(cur/(t-1)*100)+'%';
+  document.getElementById('hcnt').textContent=(cur+1)+' / '+t;
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.className='dot'+(i===cur?' on':i<cur?' done':'');
+  });
+}
+
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')next();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prev();
+});
+
+/* ── Prompt builder ── */
+['b1','b2','b3','b4','b5'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('input',buildPrompt);
+});
+
+function buildPrompt(){
+  const parts=['b1','b2','b3','b4','b5']
+    .map(id=>(document.getElementById(id)?.value||'').trim())
+    .filter(Boolean)
+    .map(p=>p.endsWith('.')?p:p+'.');
+  const out=document.getElementById('po');
+  out.innerHTML=parts.length?parts.join(' '):'<em>Completá los campos y tu prompt aparecerá aquí...</em>';
+}
+
+function copyPrompt(){
+  const t=document.getElementById('po').textContent;
+  if(!t||t.startsWith('Completá')){toast('Primero completá algún campo.');return}
+  cp(t);
+}
+
+/* ── NotebookLM ── */
+let selQ='';
+function selChip(el,q){
+  document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  selQ=q;
+  document.getElementById('qo').textContent=q;
+  document.getElementById('cqb').style.display='inline-flex';
+}
+function copyQ(){if(selQ)cp(selQ)}
+
+/* ── Clipboard ── */
+function cp(text){
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('¡Copiado!')).catch(()=>fb(text));
+  } else fb(text);
+}
+function fb(text){
+  const ta=document.createElement('textarea');
+  Object.assign(ta.style,{position:'fixed',opacity:'0',top:'0',left:'0'});
+  ta.value=text;
+  document.body.appendChild(ta);
+  ta.focus();ta.select();
+  try{document.execCommand('copy');toast('¡Copiado!')}
+  catch{toast('No se pudo copiar automáticamente.')}
+  document.body.removeChild(ta);
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+</script>
+
+</body>
+</html>

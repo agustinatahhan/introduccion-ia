@@ -1,0 +1,186 @@
+[title]
+Actualización clínica.
+
+[bad]
+"¿Qué hay de nuevo sobre hipertensión?"
+Pregunta abierta sin marco temporal, población ni tipo de evidencia. Devuelve generalidades no accionables y sin trazabilidad de fuentes.
+
+[good]
+Actúa como asistente de medicina basada en evidencia con criterio crítico sobre calidad metodológica.
+
+Resultado buscado: Encontrar evidencia confiable y aplicable en consulta.
+Desafío base: Resumime la evidencia de los últimos 3 años sobre manejo farmacológico de hipertensión en adultos mayores de 65 años con comorbilidad renal. Diferenciá guías de sociedades científicas, revisiones sistemáticas y ensayos clínicos.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos, población objetivo y preguntas de calibración (nivel de función renal, definiciones de outcome).
+Fase 2 - Diseño: síntesis principal en formato de tabla comparativa (fuente, tipo de estudio, nivel de evidencia, recomendación).
+Fase 3 - Implementación: cómo trasladar esto a la consulta y qué verificar en cada paciente.
+Fase 4 - Control: limitaciones de la evidencia, conflictos entre guías y qué NO puede afirmarse.
+
+Cierre obligatorio: aclará qué afirmaciones requieren verificación en fuente primaria y ofrecé una versión 2 del pedido.
+Técnicas aplicadas: Marco de evidencia, Supuestos y riesgos, Entregables verificables, Control de fuentes.
+
+[title]
+Comunicación con pacientes
+[bad]
+
+"Explicá la diabetes fácil."
+No define destinatario, nivel de lectura ni objetivo. Produce texto genérico que no sirve para un paciente concreto.
+[good]
+
+Actúa como médico con experiencia en comunicación clínica y alfabetización en salud.
+
+Resultado buscado: Que el paciente comprenda y actúe sobre su diagnóstico.
+Desafío base: Redactá una explicación de diabetes tipo 2 recién diagnosticada para un paciente adulto sin formación médica, nivel de lectura básico, tono empático y no alarmista. Incluí qué es, qué cambia en su vida y 3 acciones concretas iniciales.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos sobre el paciente y preguntas para ajustar el tono.
+Fase 2 - Diseño: el texto explicativo en formato de párrafos cortos + lista de acciones.
+Fase 3 - Implementación: cómo abrir y cerrar la conversación en consultorio.
+Fase 4 - Control: qué no debe prometerse, señales de alarma que sí deben mencionarse y límites del material educativo.
+
+Cierre obligatorio: aclaración de que no reemplaza indicación médica personalizada + versión 2 del pedido.
+Técnicas aplicadas: Definición de audiencia, Diseño por fases, Entregables verificables, Cierre con siguiente acción.
+
+[title]
+Organización de la historia clínica
+[bad]
+
+"Ordename las historias clínicas."
+Objetivo vago, sin criterio de estructura ni consideración de datos sensibles. Riesgo de resultado inutilizable.
+[good]
+Actúa como consultor en gestión de práctica médica con foco en registros clínicos.
+
+Resultado buscado: Estandarizar el registro clínico para consulta más rápida y segura.
+Desafío base: Ayudame a diseñar una plantilla estructurada de evolución clínica para consultorio de clínica general, con campos fijos y campos libres, pensada para completarse en menos de 3 minutos.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos, especialidad y preguntas de calibración.
+Fase 2 - Diseño: la plantilla en formato de estructura de campos + ejemplo completado.
+Fase 3 - Implementación: cómo adoptarla progresivamente y métrica de tiempo ahorrado.
+Fase 4 - Control: manejo de datos sensibles, qué no debe delegarse a IA y revisión de calidad.
+
+Cierre obligatorio: recordatorio de no cargar datos identificatorios de pacientes en herramientas de IA + versión 2 del pedido.
+Técnicas aplicadas: Diseño por fases, Entregables verificables, Control de datos sensibles, Cierre con siguiente acción.
+
+[title]
+Preparación de casos para ateneo
+[bad]
+"Armame un caso clínico."
+Sin datos, sin objetivo docente ni formato. Genera un caso ficticio irrelevante.
+[good]
+Actúa como docente de medicina con experiencia en presentación de casos y razonamiento clínico.
+
+Resultado buscado: Presentar un caso claro que estimule discusión diagnóstica.
+Desafío base: A partir de los datos que te paso (los inserto abajo), organizá el caso en formato de ateneo: motivo de consulta, evolución, hallazgos, diagnósticos diferenciales y puntos de discusión. No inventes datos que no te di; marcá los faltantes.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: qué datos hay, cuáles faltan y preguntas de calibración.
+Fase 2 - Diseño: el caso estructurado en secciones + diferenciales razonados.
+Fase 3 - Implementación: guion de presentación con tiempos.
+Fase 4 - Control: sesgos de razonamiento a vigilar y límites del análisis sin datos completos.
+
+Cierre obligatorio: lista explícita de datos faltantes + versión 2 del pedido.
+Técnicas aplicadas: Anclaje en datos reales, Diseño por fases, Control de supuestos, Entregables verificables.
+
+[title]
+Cierre contable - Revisión de balance de sumas y saldos
+
+[bad]
+"Revisá este balance."
+No indica qué revisar, con qué criterio ni normativa. Devuelve comentarios superficiales.
+[good]
+Actúa como contador senior con experiencia en cierre de ejercicio y control interno.
+
+Resultado buscado: Detectar inconsistencias antes de emitir estados contables.
+Desafío base: A partir del balance de sumas y saldos que te paso, señalá posibles errores de imputación, cuentas con saldo anómalo (deudor/acreedor invertido) y partidas que ameriten ajuste. Trabajá solo sobre los datos provistos.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos, normativa aplicable y preguntas de calibración.
+Fase 2 - Diseño: hallazgos en formato de tabla (cuenta, observación, criterio, acción sugerida).
+Fase 3 - Implementación: orden de verificación y priorización de ajustes.
+Fase 4 - Control: qué requiere revisión del profesional, límites del análisis automatizado y riesgos.
+
+Cierre obligatorio: aclaración de que las observaciones no reemplazan el juicio profesional + versión 2 del pedido.
+Técnicas aplicadas: Anclaje en datos reales, Diseño por fases, Control de supuestos, Entregables verificables.
+
+[title]
+Impuestos- Interpretación de normativa fiscal
+[bad]
+"Explicame el impuesto a las ganancias."
+Demasiado amplio, sin jurisdicción, período ni caso. Riesgo alto de información desactualizada o errónea.
+[good]
+Actúa como asesor impositivo con criterio de aplicación práctica y prudencia normativa.
+
+Resultado buscado: Comprender la norma y su aplicación a un caso concreto.
+Desafío base: Explicame el tratamiento del impuesto a las ganancias para una persona física con ingresos por relación de dependencia y una segunda actividad autónoma, en la jurisdicción y período que indico abajo. Diferenciá qué es criterio establecido y qué requiere verificación normativa vigente.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: jurisdicción, período, supuestos y preguntas de calibración.
+Fase 2 - Diseño: explicación estructurada + ejemplo numérico ilustrativo.
+Fase 3 - Implementación: pasos de liquidación y qué documentación reunir.
+Fase 4 - Control: puntos que exigen consultar la norma vigente y riesgos de aplicar información desactualizada.
+
+Cierre obligatorio: advertencia de verificar legislación vigente en fuente oficial + versión 2 del pedido.
+Técnicas aplicadas: Definición de jurisdicción/período, Control de fuentes, Entregables verificables, Cierre con siguiente acción.
+Nota: la normativa fiscal cambia con frecuencia; toda respuesta debe validarse contra la legislación vigente.
+
+[title]
+Redacción de informes para el cliente - Traducir números a decisiones.
+[bad]
+"Escribí un informe para mi cliente."
+Sin destinatario, propósito ni datos. Produce texto vacío y genérico.
+[good]
+Actúa como contador con habilidad para comunicar información financiera a no especialistas.
+
+Resultado buscado: Que el cliente entienda su situación y tome decisiones.
+Desafío base: Con los datos que te paso, redactá un informe ejecutivo mensual para el dueño de una pyme, sin formación contable, que resuma resultado, liquidez y 3 alertas o recomendaciones prioritarias. Tono claro y directo.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos sobre el cliente y preguntas de calibración.
+Fase 2 - Diseño: el informe en formato de resumen ejecutivo + lista de recomendaciones.
+Fase 3 - Implementación: cómo presentarlo y qué preguntas anticipar.
+Fase 4 - Control: qué no debe afirmarse sin respaldo y límites del análisis.
+
+Cierre obligatorio: aclaración de alcance del informe + versión 2 del pedido.
+Técnicas aplicadas: Definición de audiencia, Anclaje en datos reales, Diseño por fases, Entregables verificables.
+
+[title]
+Automatización de tareas repetitivas
+[bad]
+"Automatizame las tareas del estudio."
+Objetivo abstracto, sin inventario de tareas ni criterio de priorización. No es ejecutable.
+[good]
+Actúa como consultor de eficiencia para estudios contables con foco en ejecución.
+
+Resultado buscado: Reducir tiempo operativo delegando lo repetitivo a la IA.
+Desafío base: Ayudame a diseñar un sistema para trabajar con IA en mi estudio contable: qué tareas delego (redacción de mails, resúmenes de normativa, planillas, borradores de informes), qué prompts guardo como plantillas, cuándo verifico y cómo mido el tiempo ahorrado. Entregalo por fases con 5 plantillas iniciales.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: supuestos, alcance y preguntas de calibración.
+Fase 2 - Diseño: propuesta principal en lista práctica con pasos accionables + set de plantillas.
+Fase 3 - Implementación: hitos, entregables y métricas de avance.
+Fase 4 - Control: riesgos, datos que nunca deben cargarse en IA y revisión final.
+
+Cierre obligatorio: recordatorio de confidencialidad de datos de clientes + versión 2 del pedido.
+Técnicas aplicadas: Diseño por fases, Supuestos y riesgos, Entregables verificables, Control de datos sensibles.
+
+[title]
+Análisis financiero - Evaluación de la salud financiera de un cliente
+[bad]
+"¿Cómo está financieramente mi cliente?"
+Sin datos ni indicadores definidos. Respuesta especulativa y sin sustento.
+[good]
+Actúa como analista financiero con enfoque en pymes y lectura de indicadores.
+
+Resultado buscado: Diagnóstico financiero claro que guíe decisiones.
+Desafío base: Con los estados contables que te paso, calculá e interpretá los indicadores clave (liquidez, endeudamiento, rentabilidad, rotación) y señalá fortalezas y focos de riesgo. Trabajá solo con los datos provistos y marcá los faltantes.
+
+Diseña la respuesta como un plan por fases:
+Fase 1 - Delimitación: datos disponibles, faltantes y preguntas de calibración.
+Fase 2 - Diseño: indicadores en formato de tabla (indicador, valor, interpretación, referencia) + síntesis.
+Fase 3 - Implementación: recomendaciones priorizadas y próximos pasos.
+Fase 4 - Control: límites del análisis, supuestos y qué requiere validación del profesional.
+
+Cierre obligatorio: lista de datos faltantes que mejorarían el análisis + versión 2 del pedido.
+Técnicas aplicadas: Anclaje en datos reales, Entregables verificables, Control de supuestos, Cierre con siguiente acción.
