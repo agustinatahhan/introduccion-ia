@@ -38,7 +38,7 @@ body{overflow:hidden}
 .ac-hint{margin-top:1.125rem;font-size:.75rem;color:#bbb}
 
 /* ── APP SHELL ── */
-#app{display:none;height:100vh;flex-direction:column;overflow:hidden}
+#app{display:none;height:100vh;height:100dvh;flex-direction:column;overflow:hidden}
 
 /* header */
 #hdr{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 1.375rem;height:50px;border-bottom:1px solid var(--bd);background:var(--wh);z-index:10}
@@ -69,6 +69,11 @@ body{overflow:hidden}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--bd);cursor:pointer;border:none;padding:0;transition:background .2s,width .2s}
 .dot.on{background:var(--or);width:18px;border-radius:4px}
 .dot.done{background:var(--or);opacity:.35}
+.slide-jump{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;justify-content:center}
+.slide-jump label{font-size:.72rem;color:var(--mu);text-transform:uppercase;letter-spacing:.09em}
+.slide-jump select{min-width:170px;padding:.45rem .65rem;border:1px solid var(--bd);border-radius:9px;background:var(--wh);color:var(--tx);font-size:.82rem;cursor:pointer}
+.slide-jump button{padding:.45rem .75rem;border:none;border-radius:9px;background:var(--or);color:var(--wh);font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s}
+.slide-jump button:hover{background:var(--ord)}
 
 /* ── SLIDE COMPONENTS ── */
 .ey{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--or);margin-bottom:.8rem}
@@ -77,6 +82,8 @@ body{overflow:hidden}
 .hl{color:var(--or)}
 .dv{border:none;border-top:1px solid var(--bd);margin:1rem 0}
 .blg{font-size:.975rem;line-height:1.7;color:var(--tx);margin-bottom:1rem}
+.pdf-slide-wrap{width:100%;overflow:hidden;border-radius:18px;background:var(--wh);border:1px solid var(--bd);padding:1rem}
+.pdf-slide-img{width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 30px 70px rgba(0,0,0,.12);max-width:100%;}
 
 .box{border-radius:var(--r);padding:1.125rem 1.25rem}
 .box+.box{margin-top:.75rem}
@@ -129,7 +136,7 @@ body{overflow:hidden}
 .tr2{display:flex;flex-wrap:wrap;gap:.35rem}
 
 /* cover */
-.cw{position:relative;min-height:calc(100vh - 140px);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.cw{position:relative;min-height:calc(100vh - 140px);min-height:calc(100dvh - 140px);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .cd1{position:absolute;right:-100px;top:-80px;width:300px;height:300px;background:var(--pkc);border-radius:50%;pointer-events:none}
 .cd2{position:absolute;right:30px;bottom:-110px;width:190px;height:190px;background:var(--pkc);border-radius:50%;pointer-events:none;opacity:.55}
 .ct{font-size:clamp(2.2rem,7vw,3.875rem);font-weight:900;color:var(--dk);line-height:1.08;position:relative;z-index:1;text-wrap:balance}
@@ -137,7 +144,7 @@ body{overflow:hidden}
 .cs{font-size:.9rem;color:var(--mu);max-width:340px;line-height:1.65;position:relative;z-index:1;margin-bottom:2.25rem}
 
 /* full slides */
-.fsi{width:100%;min-height:calc(100vh - 140px);display:flex;flex-direction:column;justify-content:center}
+.fsi{width:100%;min-height:calc(100vh - 140px);min-height:calc(100dvh - 140px);display:flex;flex-direction:column;justify-content:center}
 .spk{background:var(--pk);border-radius:var(--r);padding:2.75rem 2rem;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .sdk{background:#111;border-radius:var(--r);padding:2.75rem 2rem;flex:1;display:flex;flex-direction:column;justify-content:center}
 
@@ -175,10 +182,38 @@ mark.g{background:rgba(45,138,78,.13);color:var(--gn);border-radius:2px}
 
 button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
 
+/* ── RESPONSIVE: TABLET ── */
+@media(max-width:900px){
+  .slide{padding:2rem 1.125rem 5.25rem}
+  .cw,.fsi{min-height:calc(100vh - 160px);min-height:calc(100dvh - 160px)}
+}
+
+/* ── RESPONSIVE: NAV / HEADER (tablet + mobile) ── */
+@media(max-width:900px){
+  #hdr{padding:0 1rem;height:46px}
+  .hbrand{font-size:.74rem;gap:6px}
+  .back-btn{padding:.35rem .6rem;font-size:.7rem}
+  #nav{flex-wrap:wrap;row-gap:.55rem;padding:.65rem .875rem}
+  #bp{order:1}
+  #bn{order:2}
+  .slide-jump{order:3;width:100%;justify-content:center}
+  .slide-jump select{flex:1;min-width:0}
+  .dots{display:none}
+}
+
 @media(max-width:520px){
-  .slide{padding:1.375rem .875rem 5rem}
+  .slide{padding:1.375rem .875rem 5.5rem}
   .st{font-size:1.6rem}
   .ct{font-size:2.1rem}
+  .hbrand{display:none}
+  #hdr{justify-content:center}
+  .nb{padding:.5rem .85rem;font-size:.79rem}
+  #bn{padding:.5rem 1.125rem}
+}
+
+@media(max-width:380px){
+  .pt{display:none}
+  .slide-jump label{display:none}
 }
 </style>
 </head>
@@ -192,7 +227,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:
     <div class="ac-ico">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     </div>
-    <!-- <a href="index.html" class="back-link">← Volver al índice</a> -->
+    
     <h1>Introducción a la<br>Inteligencia Artificial</h1>
     <p>Ingresá el código del taller para acceder a los materiales interactivos.</p>
     <input type="text" id="ci" placeholder="CÓDIGO" autocomplete="off" spellcheck="false" aria-label="Código de acceso">
@@ -472,6 +507,211 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:
     <!-- Dynamic example slides loaded from prompt-examples.txt -->
     <div id="dynamic-examples-placeholder"></div>
 
+    <!-- 22 -->
+    <div class="slide" id="s22">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Las 3 formas de trabajar con ChatGPT</h1>
+        <hr class="dv">
+        <p class="blg">No es lo mismo preguntarle algo a ChatGPT que encargarle una tarea. Para trabajar bien con inteligencia artificial, primero hay que entender qué tipo de tarea tienes delante.</p>
+      </div>
+    </div>
+
+    <!-- 23 -->
+    <div class="slide" id="s23">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Tres categorías, tres herramientas</h1>
+        <hr class="dv">
+        <p class="blg">Según el tipo de tarea, usarás ChatGPT de una forma distinta. Mezclarlas es uno de los errores más comunes — y tiene solución fácil.</p>
+        <div class="g2 mt2">
+          <div class="box bwh">
+            <div class="blbl">Chat normal</div>
+            <p class="blg">Tareas puntuales. Algo que haces una vez: un email, un resumen, comparar opciones, preparar una reunión.</p>
+          </div>
+          <div class="box bgr">
+            <div class="blbl">Proyectos</div>
+            <p class="blg">Una misma temática. Un tema al que vuelves muchas veces: tu negocio, tu canal, una campaña, una oposición.</p>
+          </div>
+          <div class="box bpk">
+            <div class="blbl o">GPT personalizado</div>
+            <p class="blg">Tareas repetitivas. Una función que quieres automatizar: responder dudas, generar informes, corregir textos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 24 -->
+    <div class="slide" id="s24">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">¿Cómo funciona cada uno?</h1>
+        <hr class="dv">
+        <p class="blg">La clave: el contexto.</p>
+        <div class="g2 mt2">
+          <div class="box bgr">
+            <div class="blbl">Proyectos</div>
+            <p class="blg">Los proyectos funcionan como una carpeta inteligente. Les das contexto una sola vez — tu objetivo, tu tono, tus documentos — y ChatGPT parte con ventaja cada vez que trabajas dentro.</p>
+          </div>
+          <div class="box bpk">
+            <div class="blbl o">GPTs personalizados</div>
+            <p class="blg">Van un paso más allá: son asistentes especializados listos para repetir la misma tarea una y otra vez, sin que tengas que explicar nada de nuevo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 25 -->
+    <div class="slide" id="s25">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Configura un Proyecto en ChatGPT con contexto propio</h1>
+        <hr class="dv">
+        <p class="blg">Los Proyectos de ChatGPT permiten organizar conversaciones, archivos e instrucciones alrededor de un tema o trabajo específico. Son muy útiles cuando quieres que ChatGPT mantenga siempre presente el contexto de un proyecto concreto, sin tener que repetirlo en cada nuevo chat.</p>
+        <div class="box bwh mt2">
+          <div class="blbl">Contexto de proyecto</div>
+          <p class="blg">Evita explicar en cada conversación de qué trata el proyecto, cuál es el público objetivo, qué tono debe utilizar y cuáles son sus objetivos.</p>
+        </div>
+        <div class="box bgr mt2">
+          <div class="blbl">¿Dónde se configura?</div>
+          <p class="blg">Ve a la sección Proyectos en ChatGPT, crea un nuevo proyecto o abre uno existente, y pega esta información en el apartado de Instrucciones del proyecto.</p>
+        </div>
+        <div class="box bpk mt2">
+          <div class="blbl o">¿Qué consigue esta instrucción?</div>
+          <ul class="bl">
+            <li>Proporciona a ChatGPT todo el contexto del proyecto.</li>
+            <li>Mantiene un tono y estilo consistentes en todas las respuestas.</li>
+            <li>Adapta los contenidos al público objetivo definido.</li>
+            <li>Evita repetir la información del proyecto en cada conversación.</li>
+            <li>Genera respuestas más precisas y alineadas con los objetivos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 26 -->
+    <div class="slide" id="s26">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">¿Qué hay detrás del proyecto?</h1>
+        <hr class="dv">
+        <p class="blg">Este proyecto trata sobre un curso gratuito de inteligencia artificial de 3 días. El público son emprendedores, creadores de contenido, profesionales y personas que quieren aprender IA práctica desde cero.</p>
+        <div class="box bgr mt2">
+          <div class="blbl">Sesiones del curso</div>
+          <ul class="bl">
+            <li>Día 1: ChatGPT y prompting avanzado.</li>
+            <li>Día 2: construcción de un primer chatbot con inteligencia artificial usando n8n.</li>
+            <li>Día 3: creación de una aplicación tipo CRM sin programar.</li>
+          </ul>
+        </div>
+        <div class="box bpk mt2">
+          <div class="blbl o">Tono y enfoque</div>
+          <p class="blg">El tono debe ser claro, directo, cercano y práctico. Evita sonar demasiado técnico o demasiado publicitario. Prioriza ejemplos aplicables a negocios, creación de contenido, automatizaciones, productividad y formación online.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 27 -->
+    <div class="slide" id="s27">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Crea un GPT personalizado para analizar colaboraciones</h1>
+        <hr class="dv">
+        <p class="blg">Los GPTs personalizados permiten crear asistentes especializados para una tarea concreta. En lugar de usar ChatGPT de forma general, puedes configurar un GPT con instrucciones propias para que actúe siempre con un rol, criterios y formato de respuesta específicos.</p>
+        <div class="box bwh mt2">
+          <div class="blbl">¿Dónde se configura?</div>
+          <p class="blg">Ve a Explorar GPTs → Crear → Configurar y pega la instrucción en el campo “Instrucciones” del GPT personalizado. También puedes añadir un nombre, una descripción breve y, si lo deseas, algunos iniciadores de conversación.</p>
+        </div>
+        <div class="box bgr mt2">
+          <div class="blbl">¿Qué consigue?</div>
+          <ul class="bl">
+            <li>Convierte el GPT en un analista especializado en colaboraciones entre marcas y creadores.</li>
+            <li>Detecta señales positivas, señales de alerta e información faltante.</li>
+            <li>Evalúa propuestas comerciales de forma clara, práctica y profesional.</li>
+            <li>Ofrece una recomendación clara sobre si aceptar, negociar, pedir aclaraciones o rechazar.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 28 -->
+    <div class="slide" id="s28">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Instrucciones para el analista de colaboraciones</h1>
+        <hr class="dv">
+        <p class="blg">Eres un analista experto en colaboraciones entre marcas y creadores de contenido. Tu objetivo es ayudar a creadores, influencers, youtubers, newsletters, podcasters o profesionales con audiencia a analizar propuestas de colaboración recibidas por email o mensaje privado.</p>
+        <div class="box bgr mt2">
+          <div class="blbl">Debes revisar siempre</div>
+          <ul class="bl">
+            <li>Resumen de la propuesta: explica en pocas líneas qué está proponiendo la marca.</li>
+            <li>Tipo de colaboración: identifica si parece una integración patrocinada, vídeo dedicado, publicación en redes sociales, afiliación, intercambio de producto, campaña a largo plazo, colaboración ambigua o una primera toma de contacto.</li>
+            <li>Encaje con el creador: valora si la propuesta parece coherente para un creador de contenido.</li>
+            <li>Señales positivas: indica qué elementos transmiten profesionalidad o hacen que la propuesta pueda ser interesante.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 29 -->
+    <div class="slide" id="s29">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Señales de alerta e información faltante</h1>
+        <hr class="dv">
+        <div class="box bwh">
+          <div class="blbl">Señales de alerta</div>
+          <p class="blg">Detecta posibles problemas: falta de información, petición demasiado genérica, ausencia de presupuesto, condiciones poco claras, promesas exageradas, poca relación con la audiencia, producto dudoso, urgencia artificial o propuesta demasiado abierta.</p>
+        </div>
+        <div class="box bgr mt2">
+          <div class="blbl">Información que falta</div>
+          <p class="blg">Enumera qué habría que preguntar antes de aceptar o avanzar: formato, fecha estimada, entregables, derechos de uso, duración de la campaña, aprobación previa, condiciones de pago, briefing, producto, enlaces o expectativas de la marca.</p>
+        </div>
+        <div class="box bpk mt2">
+          <div class="blbl o">Recomendación</div>
+          <p class="blg">Da una recomendación clara: aceptar y pedir más información, negociar, responder con condiciones, rechazar educadamente, pedir aclaraciones antes de decidir.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 30 -->
+    <div class="slide" id="s30">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Formato de respuesta</h1>
+        <hr class="dv">
+        <div class="box bgr">
+          <div class="blbl">Estructura recomendada</div>
+          <ul class="bl">
+            <li>Resumen rápido</li>
+            <li>Tipo de colaboración</li>
+            <li>Encaje</li>
+            <li>Señales positivas</li>
+            <li>Señales de alerta</li>
+            <li>Información que falta</li>
+            <li>Recomendación</li>
+            <li>Respuesta sugerida</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 31 -->
+    <div class="slide" id="s31">
+      <div class="si">
+        <div class="ey">OPTIMIZAR TUS PROMPTs</div>
+        <h1 class="st">Antes de pedirle algo a ChatGPT</h1>
+        <hr class="dv">
+        <div class="box bwh">
+          <p class="blg"><strong>¿Lo voy a hacer una sola vez?</strong> → Chat normal con un buen prompt. Simple y directo.</p>
+          <p class="blg"><strong>¿Es un tema al que voy a volver?</strong> → Proyecto. Dale contexto una vez y trabaja con continuidad.</p>
+          <p class="blg"><strong>¿Quiero que siempre funcione igual?</strong> → GPT personalizado. Crea tu asistente especializado.</p>
+        </div>
+        <p class="blg">Empezamos por las tareas puntuales: la forma más sencilla de mejorar desde ya. El siguiente paso es aprender a construir un buen prompt.</p>
+      </div>
+    </div>
+
+    
     <!-- 13 Pausa -->
     <div class="slide" id="s13">
       <div class="si fsi">
@@ -484,27 +724,124 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:
       </div>
     </div>
 
-    <!-- 14 NotebookLM -->
-    <div class="slide" id="s14">
+    <!-- 14 Guia NotebookLM - Página 1 -->
+    <div class="slide" id="s100">
       <div class="si">
-        <div class="ey">Tu asistente para entender documentos</div>
-        <h1 class="st">¿Qué es NotebookLM?</h1>
-        <hr class="dv">
-        <p class="blg">NotebookLM es una herramienta de Google que puede <strong>leer documentos</strong> y responder preguntas sobre ellos — en segundos, sin que tengas que leer todo.</p>
-        <div class="g2">
-          <div class="box bgr">
-            <div class="blbl" style="margin-bottom:.45rem">Podés cargar</div>
-            <ul class="bl"><li>PDFs</li><li>Planillas de Excel</li><li>Documentos de Word</li><li>Manuales y reglamentos</li><li>Contratos</li></ul>
-          </div>
-          <div class="box bpk">
-            <div class="blbl o" style="margin-bottom:.45rem">¿Qué hace?</div>
-            <ul class="bl"><li>Resume información.</li><li>Encuentra datos clave.</li><li>Responde preguntas sobre el contenido.</li><li>Explica textos largos de forma simple.</li></ul>
-          </div>
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_01.png" alt="Guía NotebookLM página 1">
         </div>
       </div>
     </div>
 
-    <!-- 15 Cómo funciona -->
+    <!-- 15 Guia NotebookLM - Página 2 -->
+    <div class="slide" id="s101">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_02.png" alt="Guía NotebookLM página 2">
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 Guia NotebookLM - Página 3 -->
+    <div class="slide" id="s102">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_03.png" alt="Guía NotebookLM página 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- 17 Guia NotebookLM - Página 4 -->
+    <div class="slide" id="s103">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_04.png" alt="Guía NotebookLM página 4">
+        </div>
+      </div>
+    </div>
+
+    <!-- 18 Guia NotebookLM - Página 5 -->
+    <div class="slide" id="s104">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_05.png" alt="Guía NotebookLM página 5">
+        </div>
+      </div>
+    </div>
+
+    <!-- 19 Guia NotebookLM - Página 6 -->
+    <div class="slide" id="s105">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_06.png" alt="Guía NotebookLM página 6">
+        </div>
+      </div>
+    </div>
+
+    <!-- 20 Guia NotebookLM - Página 7 -->
+    <div class="slide" id="s106">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_07.png" alt="Guía NotebookLM página 7">
+        </div>
+      </div>
+    </div>
+
+    <!-- 21 Guia NotebookLM - Página 8 -->
+    <div class="slide" id="s107">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_08.png" alt="Guía NotebookLM página 8">
+        </div>
+      </div>
+    </div>
+
+    <!-- 22 Guia NotebookLM - Página 9 -->
+    <div class="slide" id="s108">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_09.png" alt="Guía NotebookLM página 9">
+        </div>
+      </div>
+    </div>
+
+    <!-- 23 Guia NotebookLM - Página 10 -->
+    <div class="slide" id="s109">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_10.png" alt="Guía NotebookLM página 10">
+        </div>
+      </div>
+    </div>
+
+    <!-- 24 Guia NotebookLM - Página 11 -->
+    <div class="slide" id="s110">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_11.png" alt="Guía NotebookLM página 11">
+        </div>
+      </div>
+    </div>
+
+    <!-- 25 Guia NotebookLM - Página 12 -->
+    <div class="slide" id="s111">
+      <div class="si">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_12.png" alt="Guía NotebookLM página 12">
+        </div>
+      </div>
+    </div>
+
+    <!-- 26 Guia NotebookLM - Página 13 -->
+    <div class="slide" id="s112">
+      <div class="si fsi">
+        <div class="pdf-slide-wrap">
+          <img class="pdf-slide-img" src="notebooklm_pages/Guia_NotebookLM_page_13.png" alt="Guía NotebookLM página 13">
+        </div>
+      </div>
+    </div>
+
+<!-- 15 Cómo funciona -->
     <div class="slide" id="s15">
       <div class="si">
         <div class="ey">Tres pasos simples</div>
@@ -613,10 +950,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--or);outline-offset:
       </div>
     </div>
 
+
   </div><!-- /sw -->
 
   <nav id="nav">
     <button class="nb" id="bp" onclick="prev()" disabled>← Anterior</button>
+    <div class="slide-jump">
+      <label for="slide-select">Ir a slide</label>
+      <select id="slide-select" onchange="go(parseInt(this.value,10))"></select>
+    </div>
     <div class="dots" id="dots"></div>
     <button class="nb" id="bn" onclick="next()">Siguiente →</button>
   </nav>
@@ -666,6 +1008,7 @@ const ss=()=>document.querySelectorAll('#sw .slide');
 function init(){
   loadExampleSlides().finally(()=>{
     const d=document.getElementById('dots');
+    d.innerHTML='';
     ss().forEach((_,i)=>{
       const b=document.createElement('button');
       b.className='dot';
@@ -673,8 +1016,23 @@ function init(){
       b.onclick=()=>go(i);
       d.appendChild(b);
     });
+    buildSlideMenu();
     update();
   });
+}
+
+function buildSlideMenu(){
+  const select=document.getElementById('slide-select');
+  if(!select) return;
+  select.innerHTML='';
+  ss().forEach((slide,i)=>{
+    const title = (slide.querySelector('.st')?.textContent || slide.querySelector('.ey')?.textContent || slide.id).trim().replace(/\s+/g,' ').slice(0,60);
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = `${i+1}. ${title}`;
+    select.appendChild(option);
+  });
+  select.value = cur;
 }
 
 function loadExampleSlides(){
@@ -768,11 +1126,13 @@ function update(){
   const t=ss().length;
   document.getElementById('bp').disabled=cur===0;
   document.getElementById('bn').disabled=cur===t-1;
-  document.getElementById('pf').style.width=(cur/(t-1)*100)+'%';
+  document.getElementById('pf').style.width = t > 1 ? (cur/(t-1)*100)+'%' : '0%';
   document.getElementById('hcnt').textContent=(cur+1)+' / '+t;
   document.querySelectorAll('.dot').forEach((d,i)=>{
     d.className='dot'+(i===cur?' on':i<cur?' done':'');
   });
+  const select = document.getElementById('slide-select');
+  if(select) select.value = cur;
 }
 
 document.addEventListener('keydown',e=>{
