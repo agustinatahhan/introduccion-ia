@@ -2505,6 +2505,7 @@ Utiliza un lenguaje claro, evita tecnicismos, no inventes información y mencion
           const title = (
             slide.querySelector(".st")?.textContent ||
             slide.querySelector(".ey")?.textContent ||
+            slide.querySelector("img")?.alt ||
             slide.id
           )
             .trim()
